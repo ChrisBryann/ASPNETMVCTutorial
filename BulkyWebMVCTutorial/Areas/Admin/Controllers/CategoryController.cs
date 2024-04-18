@@ -3,8 +3,9 @@ using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyWebMVCTutorial.Controllers
+namespace BulkyWebMVCTutorial.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly ILogger<CategoryController> _logger;
@@ -53,7 +54,7 @@ namespace BulkyWebMVCTutorial.Controllers
             Category? categoryFromDb = _unitOfWork.CategoryRepository.Get(u => u.Id == id);
             // Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
             // Category? categoryFromDb2 = _db.Categories.Where(u=>u.Id == id).FirstOrDefault();
-            if(categoryFromDb == null)
+            if (categoryFromDb == null)
             {
                 return NotFound();
             }
