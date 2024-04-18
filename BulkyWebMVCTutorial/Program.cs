@@ -1,11 +1,21 @@
-using BulkyWebMVCTutorial.Controllers.Data;
+using Bulky.DataAccess.Data;
+using Bulky.DataAccess.Repository;
+using Bulky.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// inject the categoryRepository service
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+// adding DI types - transient, scoped, singleton
+// transient - new instance every time the transient service is requested, scoped - new instance once per request, singleton - new once per lifetime
+// once defined, we can add the inject the service in any controller
+//builder.Services.AddTransient<ITransientGuidService, TransientGuidService>();
+//builder.Services.AddScoped<IScopedGuidService, ScopedGuidService>();
+//builder.Services.AddSingleton<ISingletonGuidService, SingletonGuidService>();
 
 var app = builder.Build();
 
