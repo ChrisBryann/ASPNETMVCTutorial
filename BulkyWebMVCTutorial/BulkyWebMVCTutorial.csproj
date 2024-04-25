@@ -30,6 +30,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Areas\Admin\Views\Category\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\images\product\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Areas\Admin\Views\Category\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\images\" />
+    <Content Remove="wwwroot\images\product\" />
   </ItemGroup>
 </Project>

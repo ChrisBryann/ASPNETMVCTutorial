@@ -19,7 +19,7 @@ namespace BulkyWebMVCTutorial.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _unitOfWork.CategoryRepository.GetAll().ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -37,7 +37,7 @@ namespace BulkyWebMVCTutorial.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                _unitOfWork.CategoryRepository.Add(obj);
+                _unitOfWork.Category.Add(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Category created succesfully";
                 return RedirectToAction("Index");
@@ -51,7 +51,7 @@ namespace BulkyWebMVCTutorial.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDb = _unitOfWork.CategoryRepository.Get(u => u.Id == id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
             // Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
             // Category? categoryFromDb2 = _db.Categories.Where(u=>u.Id == id).FirstOrDefault();
             if (categoryFromDb == null)
@@ -66,7 +66,7 @@ namespace BulkyWebMVCTutorial.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.CategoryRepository.Update(obj); // based on the ID of obj, it will auto update the corresponding data in db
+                _unitOfWork.Category.Update(obj); // based on the ID of obj, it will auto update the corresponding data in db
                 _unitOfWork.Save();
                 TempData["success"] = "Category updated succesfully";
                 return RedirectToAction("Index");
@@ -81,7 +81,7 @@ namespace BulkyWebMVCTutorial.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDb = _unitOfWork.CategoryRepository.Get(u => u.Id == id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
             // Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
             // Category? categoryFromDb2 = _db.Categories.Where(u=>u.Id == id).FirstOrDefault();
             if (categoryFromDb == null)
@@ -94,12 +94,12 @@ namespace BulkyWebMVCTutorial.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? obj = _unitOfWork.CategoryRepository.Get(u => u.Id == id);
+            Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _unitOfWork.CategoryRepository.Remove(obj);
+            _unitOfWork.Category.Remove(obj);
             _unitOfWork.Save();
             TempData["success"] = "Category deleted succesfully";
             return RedirectToAction("Index");
